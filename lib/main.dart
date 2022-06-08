@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './models/transaction.dart';
 
 void main() {
   runApp(ExpensesApp());
@@ -14,7 +15,20 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  final _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Novo tênis Corrida',
+      value: 310.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de luz',
+      value: 110.60,
+      date: DateTime.now(),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +37,10 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas pessoais'),
       ),
       body: Column(
-        // crossAxisAlignment:
-        //     CrossAxisAlignment.start, //define o alinhamento do eixo Y
+        // crossAxisAlignment: //como coluna o eixo principal é o vertical
+        //     CrossAxisAlignment.start, // o crossAxisAlignment se refere a linha que cruza esse eixo, no caso ao eixo x
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -33,8 +49,37 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          Card(
-            child: Text('lista de transações'),
+          Column(
+            //O map recebe uma função de callback(ou seja tem que ter retorno) como parâmetro e para cada instanciação ele roda essa função
+            children: _transactions.map((tr) {
+              //o tr é um parâmetro do tipo de dado Transactions
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          //decoração de bordas
+                          border: Border.all(
+                        color: Colors.black,
+                        width: 2,
+                      )),
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      child: Text(tr.value.toString()),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(tr.title),
+                        Text(tr.date.toString()),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
