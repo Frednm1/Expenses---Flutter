@@ -82,14 +82,7 @@ class _TransactionUser extends State<TransactionUser> {
       children: <Widget>[
         TransactionForm(
             _addTransaction), //chama a função _addTransaction --- Passagem de parametros indireta
-        Container(
-          height: 300,
-          child: SingleChildScrollView(
-            //note que está envolvida por uma div pai para ter seu espaço de exibição delimitado
-            child:
-                TransactionList(_transactions), //passagem de parametros direta
-          ),
-        ),
+        TransactionList(_transactions), //passagem de parametros direta
       ],
     );
   }
