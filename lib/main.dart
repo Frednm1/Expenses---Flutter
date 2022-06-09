@@ -22,20 +22,23 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Despesas pessoais'),
       ),
-      body: Column(
-        // crossAxisAlignment: //como coluna o eixo principal é o vertical
-        //     CrossAxisAlignment.start, // o crossAxisAlignment se refere a linha que cruza esse eixo, no caso ao eixo x
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Card(
-              elevation: 5,
-              child: Text('Gráfico'),
+      body: SingleChildScrollView(
+        //torna scrollavel, se for envolvido em um elemento filho, também o torna scrollavel, porem o seu elemento pai tem que ter tamanho definido
+        child: Column(
+          // crossAxisAlignment: //como coluna o eixo principal é o vertical
+          //     CrossAxisAlignment.start, // o crossAxisAlignment se refere a linha que cruza esse eixo, no caso ao eixo x
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TransactionUser(),
+            Container(
+              width: double.infinity,
+              child: Card(
+                elevation: 5,
+                child: Text('Gráfico'),
+              ),
             ),
-          ),
-          TransactionUser(),
-        ],
+          ],
+        ),
       ),
     );
   }
