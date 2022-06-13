@@ -1,44 +1,68 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:despesas_pessoais/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'components/transaction_form.dart';
-import './components/transactions_list.dart';
+import './components/transaction_form.dart';
+import 'components/transactions_list.dart';
 import 'models/transaction.dart';
 
-void main() => runApp(ExpensesApp());
+main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    final ThemeData tema = ThemeData();
+
+    return MaterialApp(
+      home: MyHomePage(),
+      //define a estilização padrão do componente especificado
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          headline6: TextStyle(
+            fontFamily: 'Quicksand',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final _transactions = [
     Transaction(
       id: 't1',
-      title: 'Novo tênis Corrida',
+      title: 'Novo Tênis de Corrida',
       value: 310.76,
       date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
-      title: 'Conta de luz',
-      value: 110.60,
+      title: 'Conta de Luz',
+      value: 211.30,
       date: DateTime.now(),
     ),
   ];
 
   _addTransaction(String title, double value) {
-    // a função addTransaction requisita os dados que vêm da função onsubmit de TransactionForm
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
@@ -49,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -64,24 +90,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas pessoais'),
+        title: Text('Despesas Pessoais'),
         actions: <Widget>[
           IconButton(
-              onPressed: () => _openTransactionFormModal, icon: Icon(Icons.add))
+            icon: Icon(Icons.add),
+            onPressed: () => _openTransactionFormModal(context),
+          ),
         ],
       ),
       body: SingleChildScrollView(
-        //torna scrollavel, se for envolvido em um elemento filho, também o torna scrollavel, porem o seu elemento pai tem que ter tamanho definido
         child: Column(
-          // crossAxisAlignment: //como coluna o eixo principal é o vertical
-          //     CrossAxisAlignment.start, // o crossAxisAlignment se refere a linha que cruza esse eixo, no caso ao eixo x
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
               width: double.infinity,
               child: Card(
-                elevation: 5,
+                color: Colors.blue,
                 child: Text('Gráfico'),
+                elevation: 5,
               ),
             ),
             TransactionList(_transactions),
