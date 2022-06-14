@@ -33,7 +33,7 @@ class _TransactionFormState extends State<TransactionForm> {
             TextField(
               controller: titleController,
               onSubmitted: (value) => _submitForm(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -46,7 +46,7 @@ class _TransactionFormState extends State<TransactionForm> {
               onSubmitted: (value) => _submitForm(),
               keyboardType: TextInputType.numberWithOptions(
                   decimal: true), //somente number funciona somente em android
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -54,16 +54,34 @@ class _TransactionFormState extends State<TransactionForm> {
                 labelText: 'Valor R\$',
               ),
             ),
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  Text('Nehuma data selecionada!'),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'selecionar data',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.purple,
+                  ),
                   onPressed: _submitForm,
-                  child: Text(
+                  child: const Text(
                     'Nova Transação',
-                    style: TextStyle(
-                      color: Colors.purple,
-                    ),
                   ),
                 ),
               ],
