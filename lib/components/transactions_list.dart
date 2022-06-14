@@ -4,7 +4,8 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-  TransactionList(this.transactions);
+  final void Function(String) onRemove;
+  TransactionList(this.transactions, this.onRemove);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class TransactionList extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   height: 200,
                   child: Image.asset(
                     'assets/images/waiting.png',
@@ -54,6 +55,11 @@ class TransactionList extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => onRemove(tr.id),
                     ),
                     title: Text(
                       tr.title,

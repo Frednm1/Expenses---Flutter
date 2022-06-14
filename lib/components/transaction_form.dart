@@ -61,7 +61,7 @@ class _TransactionFormState extends State<TransactionForm> {
             TextField(
               controller: _valueController,
               onSubmitted: (value) => _submitForm(),
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                   decimal: true), //somente number funciona somente em android
               decoration: const InputDecoration(
                 hintStyle: TextStyle(
