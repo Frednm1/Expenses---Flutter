@@ -42,76 +42,83 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              onSubmitted: (value) => _submitForm(),
-              decoration: const InputDecoration(
-                hintStyle: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
-                ),
-                labelText: 'Título',
-              ),
-            ),
-            TextField(
-              controller: _valueController,
-              onSubmitted: (value) => _submitForm(),
-              keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true), //somente number funciona somente em android
-              decoration: const InputDecoration(
-                hintStyle: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
-                ),
-                labelText: 'Valor R\$',
-              ),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedDate == null
-                          ? 'Nehuma data selecionada!'
-                          : 'Data selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
-                    ),
+    return SingleChildScrollView(
+      child: Card(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: _titleController,
+                onSubmitted: (value) => _submitForm(),
+                decoration: const InputDecoration(
+                  hintStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey,
                   ),
-                  TextButton(
-                    onPressed: () {
-                      _showDatePicker();
-                    },
-                    child: Text(
-                      'Selecionar data',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor,
+                  labelText: 'Título',
+                ),
+              ),
+              TextField(
+                controller: _valueController,
+                onSubmitted: (value) => _submitForm(),
+                keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true), //somente number funciona somente em android
+                decoration: const InputDecoration(
+                  hintStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey,
+                  ),
+                  labelText: 'Valor R\$',
+                ),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'Nehuma data selecionada!'
+                            : 'Data selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.purple,
-                  ),
-                  onPressed: _submitForm,
-                  child: const Text(
-                    'Nova Transação',
-                  ),
+                    TextButton(
+                      onPressed: () {
+                        _showDatePicker();
+                      },
+                      child: Text(
+                        'Selecionar data',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            )
-          ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
+                    onPressed: _submitForm,
+                    child: const Text(
+                      'Nova Transação',
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
